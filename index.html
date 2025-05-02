@@ -1,43 +1,114 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <link rel = "stylesheet" href = "style/SalonDeCoiffure.css"/>
-    </head>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Salon de Coiffure Western</title>
+    <link rel="stylesheet" href="SalonDeCoiffure2.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
     <header>
-        <img src=""  width="300">
+        <div class="nav-container">
+            
+            <nav>
+                <img src="LogoBarber.png" alt="Logo du salon" class="logo">
+                <a href="#horaires">Horaires</a>
+                <a href="#contact">Contact</a>
+                <a href="#coupes">Nos coupes</a>
+                <a href="#tarifs">Tarifs</a>
+                <a href="#avis">Avis</a>
+                <a href="#newsletter">Newsletters</a>
+            </nav>
+        </div>
     </header>
-    <nav>
-        <a href = "#Accueil">Horaires</a>
-        <a href = "#Accueil">Contact</a>
-        <a href = "#Accueil">Nos coupes</a>
-        <a href = "#Accueil">Avis</a>
-        <a href = "#Accueil">News letters</a>
-    </nav>
-    <body>
+
+    <main>
         <h1>Notre Salon</h1>
+
         <div class="imageSalon">
             <div class="text-content">
                 <h2>Présentation du salon</h2>
-                <p>Dans les vastes plaines poussiéreuses de l’Ouest américain, quelque part entre une voie ferrée grinçante et un soleil de plomb, se dressait un bâtiment à la façade en bois usé par le temps : le saloon.
+                <p>
+                    Dans les vastes plaines poussiéreuses de l’Ouest américain, quelque part entre une voie ferrée grinçante et un soleil de plomb, se dressait un bâtiment à la façade en bois usé par le temps : le saloon. 
                     <br>
                     <br>
-                    C’était bien plus qu’un simple bar. Le saloon, avec ses portes battantes emblématiques, était le cœur battant de la petite ville.
+                    C’était bien plus qu’un simple bar. Le saloon, avec ses portes battantes emblématiques, était le cœur battant de la petite ville. 
                     <br>
                     <br>
-                    Dès qu’on les poussait, une odeur de whisky bon marché, de tabac et de cuir flottait dans l’air. Les bottes claquaient sur les lames du plancher, et quelque part dans le coin, un piano désaccordé jouait un air entraînant pendant qu’un joueur de poker battait les cartes.
+                    Dès qu’on les poussait, une odeur de whisky bon marché, de tabac et de cuir flottait dans l’air. Les bottes claquaient sur les lames du plancher, et quelque part dans le coin, un piano désaccordé jouait un air entraînant pendant qu’un joueur de poker battait les cartes. 
                     <br>
                     <br>
-                    Les habitués étaient là chaque soir : des cowboys fatigués, des chercheurs d’or couverts de poussière, quelques shérifs en quête de calme (ou de bagarre), et parfois, une mystérieuse étrangère au regard perçant.
+                    Les habitués étaient là chaque soir : des cowboys fatigués, des chercheurs d’or couverts de poussière, quelques shérifs en quête de calme (ou de bagarre), et parfois, une mystérieuse étrangère au regard perçant. 
                     <br>
                     <br>
-                    Derrière le bar, le barman nettoyait ses verres tout en gardant un œil sur les disputes naissantes — prêt à sortir son fusil planqué sous le comptoir. Mais attention… le saloon n’était pas toujours un lieu paisible.
+                    Derrière le bar, le barman nettoyait ses verres tout en gardant un œil sur les disputes naissantes — prêt à sortir son fusil planqué sous le comptoir. Mais attention… le saloon n’était pas toujours un lieu paisible. 
                     <br>
                     <br>
-                    Une insulte de trop, une triche au poker, et en un claquement de doigts, les chaises volaient et les duels éclataient. Pourtant, malgré son tumulte, le saloon restait l’endroit où les histoires naissaient, où les légendes du Far West prenaient vie entre deux gorgées de whisky et trois notes de piano.</p>
+                    Une insulte de trop, une triche au poker, et en un claquement de doigts, les chaises volaient et les duels éclataient. Pourtant, malgré son tumulte, le saloon restait l’endroit où les histoires naissaient, où les légendes du Far West prenaient vie entre deux gorgées de whisky et trois notes de piano.
+                </p>
             </div>
             <img src="https://img.pikbest.com/wp/202345/some-pictures-of-an-antique-barber-shop_9589207.jpg!w700wp" alt="Notre Salon">
         </div>
- 
-       
-    </body>
+
+        <section id="coupes">
+            <h2>Exemples de coupes</h2>
+            <div class="gallery">
+                <img src="exemple1.jpg" alt="Coupe 1">
+                <img src="exemple2.jpg" alt="Coupe 2">
+                <img src="exemple3.jpg" alt="Coupe 3">
+            </div>
+        </section>
+
+        <section id="tarifs">
+            <h2>Tarifs</h2>
+            <ul>
+                <li>Coupe classique : 20€</li>
+                <li>Dégradé à blanc : 25€</li>
+                <li>Barbe : 15€</li>
+                <li>Pack coupe + barbe : 35€</li>
+            </ul>
+        </section>
+
+        <section id="rdv">
+            <h2>Prendre rendez-vous</h2>
+            <form id="formulaire-rdv">
+                <label>Nom:<br><input type="text" name="nom" required></label><br>
+                <label>Email:<br><input type="email" name="email" required></label><br>
+                <label>Date:<br><input type="date" name="date" required></label><br>
+                <label>Heure:<br><input type="time" name="heure" required></label><br>
+                <label>Service:<br>
+                    <select name="service" required>
+                        <option value="coupe">Coupe</option>
+                        <option value="barbe">Barbe</option>
+                        <option value="pack">Coupe + Barbe</option>
+                    </select>
+                </label><br>
+                <button type="submit">Réserver</button>
+                <p id="confirmation" style="display:none; color: green;">Rendez-vous enregistré !</p>
+            </form>
+        </section>
+
+        <section id="avis">
+            <h2>Ce que disent nos clients</h2>
+            <blockquote>"Ambiance incroyable, on se croirait dans un western !" – Jules</blockquote>
+            <blockquote>"Les meilleures coupes de la ville, et une équipe au top." – Clara</blockquote>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Adresse : 123 rue du Far West, 75000 Paris</p>
+            <p>Téléphone : 01 23 45 67 89</p>
+            <p>Email : contact@salonwestern.fr</p>
+        </section>
+
+        <section id="newsletter">
+            <h2>Inscris-toi à la newsletter</h2>
+            <form id="form-newsletter">
+                <label>Email:<br><input type="email" required></label>
+                <button type="submit">S'inscrire</button>
+                <p id="newsletter-confirm" style="display:none; color: green;">Merci pour ton inscription !</p>
+            </form>
+        </section>
+    </main>
+</body>
 </html>
