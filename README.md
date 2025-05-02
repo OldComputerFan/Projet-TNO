@@ -9,3 +9,14 @@ Il y aura:
 
 ## Fonctionalités administrateur
 *Nécéssite de s'authentifier avec un utilisateur précis*
+Il y aura:
+  - Un système de gestion des employés,
+  - Un accès aux bases de données du site,
+  - Gestion des services/tarifs,
+  - Ajout de posts,
+  - Gestion de la Newsletter
+
+## Partie technique
+  - HTML/CSS/JS pour le front-end,
+  - Flask pour le back-end,
+  - API Google Calendar pour la gestion des rendez-vous
