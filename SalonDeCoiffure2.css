@@ -33,9 +33,9 @@ header {
 nav {
     display: flex;
     gap: 3rem;
-    background: url("https://img.pikbest.com/wp/202344/tree-bark-texture-panoramic-banner-close-up-of-wide-board-on-dark-brown-weathered-wood_9920489.jpg!w700wp");
     background-size: cover;
     padding: 1rem;
+    align-items: center;
     justify-content: center;
 }
 
