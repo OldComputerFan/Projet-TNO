@@ -1,0 +1,70 @@
+nav {
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    gap: 10%;  
+    background-image: url("https://img.pikbest.com/wp/202344/tree-bark-texture-panoramic-banner-close-up-of-wide-board-on-dark-brown-weathered-wood_9920489.jpg!w700wp");
+    height: 10%;
+    width: 100%;
+    padding: 1%;
+}
+ 
+nav a {
+    color: white;  
+    font-weight: bold;
+    font-size: 125%;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-decoration-style: double;
+    text-decoration-color: darkorange;
+    padding: 1%;
+}
+ 
+nav a:hover{
+    background-color: rgb(173, 173, 169);
+}
+ 
+h1 {
+    display: flex;
+    justify-content: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+ 
+h2 {
+    font-family: Cambria;
+}
+ 
+p {
+    font-style: italic;
+    font-family:'Times New Roman', Times, serif
+}
+ 
+.imageSalon {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1%;
+    padding: 20px;
+    width: 100%;
+}
+ 
+.text-content {
+    height: 150%;
+    width: 50%;
+    background-color: rgb(192, 188, 188);
+    font-size: 125%;
+    overflow: visible;
+    border: 5px solid;
+    border-color: rgb(0, 0, 0);
+    border-radius: 5% ;
+    padding: 1%;
+}
+ 
+.imageSalon h2 {
+    font-size: 150%;
+    margin-bottom: 5px;
+}
+ 
+.imageSalon img {
+    width: 65%; /* L'image occupera 100% de la largeur du conteneur */
+    height: 65%; /* La hauteur sera ajustée automatiquement pour conserver les proportions */
+    border-radius: 5%;
+}
