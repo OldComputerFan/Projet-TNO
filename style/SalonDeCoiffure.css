@@ -4,11 +4,11 @@ nav {
     align-items: center;
     gap: 10%;  
     background-image: url("https://img.pikbest.com/wp/202344/tree-bark-texture-panoramic-banner-close-up-of-wide-board-on-dark-brown-weathered-wood_9920489.jpg!w700wp");
-    height: 10%;
+    height: auto;  /* Hauteur flexible */
     width: 100%;
     padding: 1%;
 }
- 
+
 nav a {
     color: white;  
     font-weight: bold;
@@ -18,9 +18,19 @@ nav a {
     text-decoration-color: darkorange;
     padding: 1%;
 }
- 
-nav a:hover{
+
+nav a:hover {
     background-color: rgb(173, 173, 169);
+}
+
+/* Redimensionner l'image logo */
+nav img.logo {
+    max-width: 50px; /* Limite la largeur maximale à 50px */
+    max-height: 50px; /* Limite la hauteur maximale à 50px */
+    width: auto;  /* Pour maintenir les proportions de l'image */
+    height: auto;  /* Idem pour la hauteur */
+    border-radius: 50%; /* Pour garder la forme ronde */
+    margin-right: 1%;
 }
  
 h1 {
