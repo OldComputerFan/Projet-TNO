@@ -3,55 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Prise de Rendez-vous Dynamique</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-    }
-    h2 {
-      margin-bottom: 10px;
-    }
-    .mode-switch {
-      margin-bottom: 20px;
-    }
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 15px;
-    }
-    .day-column {
-      background-color: #f0f0f0;
-      padding: 10px;
-      border-radius: 8px;
-    }
-    .day-column h3 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    .slot {
-      padding: 8px;
-      margin: 4px 0;
-      text-align: center;
-      border-radius: 6px;
-      cursor: pointer;
-      background-color: #ccc;
-      transition: 0.3s;
-    }
-    .available {
-      background-color: #4caf50;
-      color: white;
-    }
-    .reserved {
-      background-color: #f44336;
-      color: white;
-      cursor: not-allowed;
-    }
-    .inactive {
-      background-color: #999;
-      color: white;
-    }
-  </style>
+  <link rel="stylesheet" href="style/calendrier.css">
 </head>
+
+<header>
+    <div class="nav-container">
+        
+        <nav>
+            <img src="img/LogoBarber.png" alt="Logo du salon" class="logo">
+            <a href="index.html">Accueil</a>
+            <a href="#horaires">Horaires</a>
+            <a href="#contact">Contact</a>
+            <a href="#coupes">Nos coupes</a>
+            <a href="#avis">Avis</a>
+        </nav>
+    </div>
+</header>
+
 <body>
 
 <h2>Réservation de créneaux</h2>

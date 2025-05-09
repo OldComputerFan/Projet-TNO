@@ -1,0 +1,122 @@
+*
+{
+    padding: 20px;
+}
+
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background-color: #1a1a1a;
+    background-image: url('https://t3.ftcdn.net/jpg/01/29/57/24/360_F_129572402_uAJNWcrPUnH8v9FAKIFomhesiTkYsSfd.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fdf6e3;
+    position: relative;
+    /**/
+}
+
+header {
+    text-align: center;
+    padding: 1rem;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: url("https://img.pikbest.com/wp/202344/tree-bark-texture-panoramic-banner-close-up-of-wide-board-on-dark-brown-weathered-wood_9920489.jpg!w700wp");
+    background-size: cover;
+}
+
+nav {
+    display: flex;
+    gap: 3rem;
+    background-size: cover;
+    padding: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+nav a:hover {
+    color: #f0c674;
+}
+
+
+h1, h2 {
+    text-align: center;
+    color: #ffeec2;
+    text-shadow: 1px 1px 2px #000;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 1.5%;
+    border-radius: 12px;
+    margin: 1.5%;
+}
+
+.mode-switch 
+{
+    margin-bottom: 20px;
+}
+
+.calendar 
+{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+  
+.day-column 
+{
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: #fff8dc;
+    margin: 1.5%;
+}
+
+.day-column h3 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.slot 
+{
+    padding: 8px;
+    margin: 4px 0;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #ccc;
+    transition: 0.3s;
+}
+
+.available 
+{
+    background-color: #4caf50;
+    color: white;
+}
+
+.reserved 
+{
+    background-color: #f44336;
+    color: white;
+    cursor: not-allowed;
+}
+
+.inactive 
+{
+    background-color: #999;
+    color: white;
+}
