@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Prise de Rendez-vous Dynamique</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    .mode-switch {
+      margin-bottom: 20px;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 15px;
+    }
+    .day-column {
+      background-color: #f0f0f0;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .day-column h3 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .slot {
+      padding: 8px;
+      margin: 4px 0;
+      text-align: center;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: #ccc;
+      transition: 0.3s;
+    }
+    .available {
+      background-color: #4caf50;
+      color: white;
+    }
+    .reserved {
+      background-color: #f44336;
+      color: white;
+      cursor: not-allowed;
+    }
+    .inactive {
+      background-color: #999;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Réservation de créneaux</h2>
+
+<div class="mode-switch">
+  Mode :
+  <label><input type="radio" name="mode" value="user" checked> Utilisateur</label>
+  <label><input type="radio" name="mode" value="admin"> Administrateur</label>
+</div>
+
+<div class="calendar" id="calendar">
+  <!-- Contenu généré dynamiquement -->
+</div>
+
+<script>
+  const calendarEl = document.getElementById('calendar');
+  const modeRadios = document.querySelectorAll('input[name="mode"]');
+  let currentMode = "user";
+
+  const timeSlots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"];
+  const joursFeries = [
+  "2025-01-01", // Jour de l'an
+  "2025-04-21", // Lundi de Pâques
+  "2025-05-01", // Fête du Travail
+  "2025-05-08", // Victoire 1945
+  "2025-05-29", // Ascension
+  "2025-06-09", // Lundi de Pentecôte
+  "2025-07-14", // Fête nationale
+  "2025-08-15", // Assomption
+  "2025-11-01", // Toussaint
+  "2025-11-11", // Armistice
+  "2025-12-25"  // Noël
+];
+
+  const daysToShow = 5;
+  const slotData = {}; // Format : slotData["YYYY-MM-DD"]["HH:MM"] = {active: true, reserved: false}
+
+  // Génère les créneaux pour les 5 jours à venir
+  function generateSlots() {
+  const today = new Date();
+  for (let d = 0; d < daysToShow; d++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + d);
+    const dateStr = date.toISOString().split('T')[0];
+
+    const isHoliday = joursFeries.includes(dateStr);
+
+    slotData[dateStr] = {};
+    timeSlots.forEach(time => {
+      slotData[dateStr][time] = {
+        active: !isHoliday,  // inactive si jour férié
+        reserved: false
+      };
+    });
+  }
+}
+
+
+  function renderCalendar() {
+    calendarEl.innerHTML = '';
+    const today = new Date();
+
+    for (let d = 0; d < daysToShow; d++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + d);
+      const dateStr = date.toISOString().split('T')[0];
+      const readableDate = date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' });
+
+      const dayCol = document.createElement('div');
+      dayCol.classList.add('day-column');
+      dayCol.innerHTML = `<h3>${readableDate}</h3>`;
+
+      timeSlots.forEach(time => {
+        const slot = slotData[dateStr][time];
+        const slotDiv = document.createElement('div');
+        slotDiv.classList.add('slot');
+        slotDiv.textContent = time;
+
+        if (!slot.active) {
+          slotDiv.classList.add('inactive');
+        } else if (slot.reserved) {
+          slotDiv.classList.add('reserved');
+          slotDiv.textContent += " - Réservé";
+        } else {
+          slotDiv.classList.add('available');
+          slotDiv.textContent += " - Disponible";
+        }
+
+        slotDiv.onclick = () => {
+          if (currentMode === "admin") {
+            slot.active = !slot.active;
+            if (!slot.active) slot.reserved = false;
+          } else if (currentMode === "user") {
+            if (slot.active && !slot.reserved) {
+              const confirmed = confirm(`Réserver le créneau du ${readableDate} à ${time} ?`);
+              if (confirmed) slot.reserved = true;
+            }
+          }
+          renderCalendar();
+        };
+
+        dayCol.appendChild(slotDiv);
+      });
+
+      calendarEl.appendChild(dayCol);
+    }
+  }
+
+  modeRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      currentMode = e.target.value;
+      renderCalendar();
+    });
+  });
+
+  generateSlots();
+  renderCalendar();
+</script>
+
+</body>
+</html>
