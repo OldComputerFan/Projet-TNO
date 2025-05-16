@@ -9,11 +9,8 @@
 <header>
     <nav>
         <a href="index.html">Accueil</a>
-        <a href="#horaires">Horaires</a>
-        <a href="calendrier.html">Prendre rendez-vous</a>
         <a href="#contact">Contact</a>
         <a href="#coupes">Nos coupes</a>
-        <a href="#avis">Avis</a>
         <a href="ff.html">Newsletter</a>
     </nav>
 </header>
@@ -23,11 +20,6 @@
 <body>
 
 <h2>Réservation de créneaux</h2>
-<div class="mode-switch">
-  Mode :
-  <label><input type="radio" name="mode" value="user" checked> Utilisateur</label>
-  <label><input type="radio" name="mode" value="admin"> Administrateur</label>
-</div>
 
 <form id="registrationForm">
     <label>Nom : <input type="text" name="name" required></label>
@@ -40,6 +32,7 @@
     <input type="hidden" name="selectedSlot" id="selectedSlot">
 
     <br>
+    <button type="button" id="cancelSlotBtn">Annuler la sélection</button>
     <button type="submit">S'inscrire</button>
 </form>
 

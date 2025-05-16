@@ -31,6 +31,31 @@ function generateSlots() {
   }
 }
 
+let selectedSlot = null;
+let previouslySelectedElement = null;
+
+function handleSlotClick(event, date, time) {
+  if (slotData[date][time].reserved) return;
+
+  // Désélectionner l'ancien créneau
+  if (previouslySelectedElement) {
+    previouslySelectedElement.classList.remove("selected");
+  }
+
+  // Sélection ou changement de sélection
+  selectedSlot = `${date}|${time}`;
+  document.getElementById("selectedSlot").value = selectedSlot;
+  event.currentTarget.classList.add("selected");
+  previouslySelectedElement = event.currentTarget;
+}
+
+function clearSlot() {
+  selected = null;
+  selectedSlotInput.value = "";
+  previouslySelectedElement = null;
+  renderCalendar();
+}
+
 function renderCalendar() {
   //generateSlots();
   calendarEl.innerHTML = '';
@@ -106,3 +131,14 @@ form.addEventListener("submit", function (e) {
 
 generateSlots();
 renderCalendar();
+
+// Gérer le bouton "Annuler la sélection"
+document.getElementById("cancelSlotBtn").addEventListener("click", function () {
+  if (confirm('Etes vous sûr de vouloir annuler la sélection ?')) {
+    // Annuler la sélection
+    clearSlot();
+  } else {
+    // Ne fais rien!
+  }
+});
+
