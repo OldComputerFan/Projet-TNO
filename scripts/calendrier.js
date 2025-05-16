@@ -137,8 +137,6 @@ document.getElementById("cancelSlotBtn").addEventListener("click", function () {
   if (confirm('Etes vous sûr de vouloir annuler la sélection ?')) {
     // Annuler la sélection
     clearSlot();
-  } else {
-    // Ne fais rien!
-  }
+  } 
 });
 
