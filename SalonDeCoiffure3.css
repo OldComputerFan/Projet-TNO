@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background-color: #000000;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #fdf6e3;
+    position: relative;
+}
+header {
+    text-align: center;
+    padding: 1rem;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background: url("https://img.pikbest.com/wp/202344/tree-bark-texture-panoramic-banner-close-up-of-wide-board-on-dark-brown-weathered-wood_9920489.jpg!w700wp");
+    background-size: cover;
+}
+
+.logo {
+    width: 150px;
+    height: 150px;
+}
+
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    gap: clamp(10px, 5vw, 60px);
+    flex-wrap: wrap;
+    padding: 0 10px;
+    background-image: url("https://img.pikbest.com/wp/202344/tree-bark-texture-panoramic-banner-close-up-of-wide-board-on-dark-brown-weathered-wood_9920489.jpg!w700wp");
+    background-size: cover;
+    background-position: center;
+    height: 60px;
+    height: auto;
+    z-index: 1000;
+}
+ 
+nav a {
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;  
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-decoration: none;
+    padding: 10px;
+}
+ 
+nav a:hover {
+    background-color: rgba(173, 173, 169, 0.6);
+    border-radius: 5px;
+}
+.main-container {
+    display: flex;
+    min-height: 80vh;
+}
+
+
+.contenu-coupes,
+.contenu-barbes {
+    display: none;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 2%;
+    width: 95%;
+    height: 95%;
+    border: 8px solid;
+    border-color: #5c3a21;
+    border-radius: 3%;
+    gap: 2%;
+}
+
+.ImageTransistion {
+    display: flex;
+    align-items: center;
+    align-items: center;
+    padding: 1rem;
+    height: 100%;
+    box-sizing: border-box
+}
+
+.ImageTransistion img {
+    max-width: 100%;
+    max-height: 100;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+
+#tab-coupes:checked ~ .contenu .contenu-coupes {
+    display: grid;
+}
+
+#tab-barbes:checked ~ .contenu .contenu-barbes {
+    display: grid;
+}
+
+.item img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.titre-image {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
