@@ -1,6 +1,7 @@
 *
 {
     padding: 20px;
+    font-family: 'Georgia', serif;
 }
 
 body {
@@ -23,6 +24,16 @@ header {
 .logo {
     width: 150px;
     height: 150px;
+}
+
+/* BLOCS DE TEXTE */
+.mainContent, .blocTexte, form {
+    padding-top: 80px;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 1.5rem;
+    border-radius: 12px;
+    color: #fff8dc;
+    margin: 1.5rem;
 }
 
 /* NAVIGATION UNIFIEE */
@@ -128,4 +139,36 @@ h1, h2 {
 {
     background-color: #999;
     color: white;
+}
+
+form label 
+{
+    display: block;
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+form label input, form label select, form label textarea 
+{
+    display: block;
+    margin-top: 5px;
+    padding: 6px 8px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+input[name="email"] {
+  width: 300px; /* ou 100%, ou une autre valeur */
+  max-width: 100%;
+}
+
+button[type="submit"]
+{
+    background-color: black;
+    color: #fdf6e3;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
 }
