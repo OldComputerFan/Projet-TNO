@@ -7,17 +7,15 @@
 </head>
 
 <header>
-    <div class="nav-container">
-        
-        <nav>
-            <img src="img/LogoBarber.png" alt="Logo du salon" class="logo">
-            <a href="index.html">Accueil</a>
-            <a href="#horaires">Horaires</a>
-            <a href="#contact">Contact</a>
-            <a href="#coupes">Nos coupes</a>
-            <a href="#avis">Avis</a>
-        </nav>
-    </div>
+    <nav>
+        <a href="index.html">Accueil</a>
+        <a href="#horaires">Horaires</a>
+        <a href="calendrier.html">Prendre rendez-vous</a>
+        <a href="#contact">Contact</a>
+        <a href="#coupes">Nos coupes</a>
+        <a href="#avis">Avis</a>
+        <a href="ff.html">Newsletter</a>
+    </nav>
 </header>
 
 <body>
@@ -98,8 +96,24 @@
         slotDiv.classList.add('slot');
         slotDiv.textContent = time;
 
+        // Vérifie si le créneau est passé
+        const now = new Date();
+        const slotDateTime = new Date(dateStr + 'T' + time + ':00');
+        const isPast = slotDateTime < now;
+
+        // Désactive le créneau s’il est passé
+        if (isPast) {
+          slot.active = false;
+        }
+
+        // Applique les classes et le texte
         if (!slot.active) {
           slotDiv.classList.add('inactive');
+        if (isPast) {
+          slotDiv.textContent += " - Passé";
+        } else {
+          slotDiv.textContent += " - Inactif";
+        }
         } else if (slot.reserved) {
           slotDiv.classList.add('reserved');
           slotDiv.textContent += " - Réservé";
@@ -108,21 +122,24 @@
           slotDiv.textContent += " - Disponible";
         }
 
+        // Comportement au clic
         slotDiv.onclick = () => {
-          if (currentMode === "admin") {
-            slot.active = !slot.active;
-            if (!slot.active) slot.reserved = false;
-          } else if (currentMode === "user") {
-            if (slot.active && !slot.reserved) {
-              const confirmed = confirm(`Réserver le créneau du ${readableDate} à ${time} ?`);
-              if (confirmed) slot.reserved = true;
-            }
-          }
-          renderCalendar();
-        };
+        if (isPast) return; // On ne peut rien faire sur un créneau passé
 
-        dayCol.appendChild(slotDiv);
-      });
+        if (currentMode === "admin") {
+          slot.active = !slot.active;
+        if (!slot.active) slot.reserved = false;
+        } else if (currentMode === "user") {
+        if (slot.active && !slot.reserved) {
+          const confirmed = confirm(`Réserver le créneau du ${readableDate} à ${time} ?`);
+          if (confirmed) slot.reserved = true;
+        }
+      }
+    renderCalendar();
+  };
+
+  dayCol.appendChild(slotDiv);
+});
 
       calendarEl.appendChild(dayCol);
     }

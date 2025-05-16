@@ -25,37 +25,46 @@ header {
     height: 150px;
 }
 
-.nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 2rem;
-    background: url("https://img.pikbest.com/wp/202344/tree-bark-texture-panoramic-banner-close-up-of-wide-board-on-dark-brown-weathered-wood_9920489.jpg!w700wp");
-    background-size: cover;
-}
-
+/* NAVIGATION UNIFIEE */
 nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     display: flex;
-    gap: 3rem;
-    background-size: cover;
-    padding: 1rem;
+    justify-content: center;  
     align-items: center;
-    justify-content: center;
+    gap: clamp(10px, 5vw, 60px);
+    flex-wrap: wrap;
+    padding: 0 10px;
+    background-image: url("https://img.pikbest.com/wp/202344/tree-bark-texture-panoramic-banner-close-up-of-wide-board-on-dark-brown-weathered-wood_9920489.jpg!w700wp");
+    background-size: cover;
+    background-position: center;
+    height: 60px;
+    height: auto;
+    z-index: 1000;
 }
 
 nav a {
-    text-decoration: none;
-    color: white;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: white;  
     font-weight: bold;
     font-size: 1.2rem;
+    text-decoration: none;
+    padding: 10px;
 }
 
 nav a:hover {
-    color: #f0c674;
+    background-color: rgba(173, 173, 169, 0.6);
+    border-radius: 5px;
 }
 
 
 h1, h2 {
+    padding-top: 80px;
     text-align: center;
     color: #ffeec2;
     text-shadow: 1px 1px 2px #000;
