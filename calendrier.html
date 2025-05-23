@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Prendre rendez-vous</title>
-  <link rel="stylesheet" href="style/calendrier.css">
+  <link rel="stylesheet" href="style/calendrier.css" />
 </head>
-
-<header>
-    <nav>
-        <a href="index.html">Accueil</a>
-        <a href="coupes.html">Nos coupes</a>
-        <a href="ff.html">Newsletter</a>
-    </nav>
-</header>
-
-<script src="scripts/calendrier.js" defer></script>
-
 <body>
 
-<h2>Réservation de créneaux</h2>
+<header>
+  <nav>
+    <a href="index.html">Accueil</a>
+    <a href="coupes.html">Nos coupes</a>
+    <a href="ff.html">Newsletter</a>
+  </nav>
+</header>
 
-<form id="registrationForm">
-    <label>Nom : <input type="text" name="name" required></label>
-    <label>Prénom : <input type="text" name="fname" required></label><br>
-    <label>Email : <input type="email" name="email" required></label><br>
+<main>
+  <h2>Réservation de créneaux</h2>
+
+  <form id="registrationForm" method="POST" action="sauv_rdv.php">
+    <label>Nom, Prénom : <input type="text" name="name" required /></label><br />
+    <label>Email : <input type="email" name="email" required style="width: 250px" /></label><br /><br />
 
     <strong>Sélectionnez un créneau horaire :</strong>
     <div class="calendar" id="calendar"></div>
 
-    <input type="hidden" name="selectedSlot" id="selectedSlot">
+    <input type="hidden" name="selectedSlot" id="selectedSlot" />
 
-    <br>
+    <br /><br />
     <button type="button" id="cancelSlotBtn">Annuler la sélection</button>
     <button type="submit">S'inscrire</button>
-</form>
+  </form>
+</main>
+
+<script src="scripts/calendrier.js" defer></script>
 
 </body>
 </html>
