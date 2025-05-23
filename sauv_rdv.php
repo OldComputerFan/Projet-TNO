@@ -15,7 +15,6 @@ try {
     exit;
 }
 
-// Récupération des données POST classiques
 $name = isset($_POST['name']) ? trim($_POST['name']) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 $slot = isset($_POST['selectedSlot']) ? trim($_POST['selectedSlot']) : '';
@@ -59,7 +58,4 @@ $stmt = $pdo->prepare("INSERT INTO rdv (user_id, date, time) VALUES (?, ?, ?)");
 $stmt->execute([$userId, $date, $time]);
 
 echo json_encode(['success' => true]);
-
-header('Location: calendrier.html');
 exit;
-?>

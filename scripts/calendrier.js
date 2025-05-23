@@ -91,7 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
           };
         }
 
-        // Marquer la sélection
         if (selected === `${dateStr}|${time}`) {
           slotDiv.classList.add('selected');
         }
@@ -106,7 +105,6 @@ document.addEventListener("DOMContentLoaded", function () {
   async function initCalendar() {
     generateSlots();
     const reserved = await fetchReservedSlots();
-    console.log("Contenu de reserved :", reserved);
 
     reserved.forEach(slot => {
       if (slotData[slot.date] && slotData[slot.date][slot.time]) {
@@ -125,14 +123,54 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  form.addEventListener("submit", function (e) {
+  form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+
+    const messageDiv = document.getElementById("confirmationMessage");
+    messageDiv.style.display = "none";
+
     if (!selectedSlotInput.value) {
-      e.preventDefault();
       alert("Veuillez sélectionner un créneau.");
       return;
     }
 
-    // Le formulaire est soumis normalement en POST vers sauv_rdv.php (cf. HTML)
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("sauv_rdv.php", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        alert("🎉 Votre rendez-vous a bien été enregistré !");
+        messageDiv.textContent = "✅ Rendez-vous confirmé avec succès.";
+        messageDiv.style.display = "block";
+        messageDiv.style.backgroundColor = "#d4edda";
+        messageDiv.style.color = "#155724";
+        messageDiv.style.border = "1px solid #c3e6cb";
+
+        form.reset();
+        selected = null;
+        selectedSlotInput.value = "";
+        await initCalendar();
+      } else {
+        messageDiv.textContent = "❌ Erreur : " + (result.error || "Inconnue");
+        messageDiv.style.display = "block";
+        messageDiv.style.backgroundColor = "#f8d7da";
+        messageDiv.style.color = "#721c24";
+        messageDiv.style.border = "1px solid #f5c6cb";
+      }
+    } catch (err) {
+      console.error("Erreur AJAX :", err);
+      messageDiv.textContent = "❌ Une erreur s'est produite. Veuillez réessayer.";
+      messageDiv.style.display = "block";
+      messageDiv.style.backgroundColor = "#f8d7da";
+      messageDiv.style.color = "#721c24";
+      messageDiv.style.border = "1px solid #f5c6cb";
+    }
   });
 
   initCalendar();
