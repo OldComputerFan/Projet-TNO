@@ -1,11 +1,13 @@
 <?php
 header('Content-Type: application/json');
 
+// Configuration de la base de données
 $host = 'localhost';
 $dbname = 'barbershop';
 $user = 'root';
 $pass = '';
 
+// Connexion à la base de données
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -15,10 +17,12 @@ try {
     exit;
 }
 
+// Vérification des données reçues
 $name = isset($_POST['name']) ? trim($_POST['name']) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 $slot = isset($_POST['selectedSlot']) ? trim($_POST['selectedSlot']) : '';
 
+// Validation des données
 if (empty($name) || empty($email) || empty($slot)) {
     http_response_code(400);
     echo json_encode(['error' => 'Données incomplètes']);
@@ -31,6 +35,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
+// Vérifier le format du créneau horaire
 list($date, $time) = explode('|', $slot);
 
 // Vérifier si le créneau est déjà réservé
