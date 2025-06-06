@@ -7,6 +7,14 @@ $dbname = 'barbershop';
 $user = 'root';
 $pass = '';
 
+// Fonction pour capitaliser prénom/nom (première lettre en majuscule, reste en minuscule, mot par mot)
+function capitalizeName(string $name): string {
+    $words = explode(' ', strtolower(trim($name)));
+    $words = array_filter($words, fn($w) => strlen($w) > 0);
+    $capitalizedWords = array_map(fn($w) => ucfirst($w), $words);
+    return implode(' ', $capitalizedWords);
+}
+
 // Connexion à la base de données
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $pass);
@@ -18,8 +26,8 @@ try {
 }
 
 // Récupération des données envoyées en POST
-$name = isset($_POST['name']) ? trim($_POST['name']) : '';
-$firstname = isset($_POST['firstname']) ? trim($_POST['firstname']) : '';
+$name = isset($_POST['name']) ? ucfirst(strtoupper(trim($_POST['name']))) : '';
+$firstname = isset($_POST['firstname']) ? ucfirst(strtoupper(trim($_POST['firstname']))) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 $slot = isset($_POST['selectedSlot']) ? trim($_POST['selectedSlot']) : '';
 
@@ -35,6 +43,10 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo json_encode(['error' => 'Email invalide']);
     exit;
 }
+
+// Capitalisation serveur
+$name = capitalizeName($name);
+$firstname = capitalizeName($firstname);
 
 // Vérifier le format du créneau horaire
 if (!str_contains($slot, '|')) {
@@ -59,7 +71,7 @@ $stmt->execute([$email]);
 $userId = $stmt->fetchColumn();
 
 if (!$userId) {
-    // Ajouter un nouvel utilisateur
+    // Ajouter un nouvel utilisateur avec prénom et nom capitalisés
     $stmt = $pdo->prepare("INSERT INTO users (firstname, name, email) VALUES (?, ?, ?)");
     $stmt->execute([$firstname, $name, $email]);
     $userId = $pdo->lastInsertId();

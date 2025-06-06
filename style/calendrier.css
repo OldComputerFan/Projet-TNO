@@ -131,7 +131,7 @@ h1, h2 {
     margin: 4px 0;
     text-align: center;
     border-radius: 6px;
-    cursor: pointer;
+    /*cursor: pointer;*/
     background-color: #ccc;
     transition: 0.3s;
 }
@@ -140,6 +140,7 @@ h1, h2 {
 {
     background-color: #4caf50;
     color: white;
+    cursor: pointer;
 }
 
 .reserved 
@@ -153,12 +154,14 @@ h1, h2 {
 {
     background-color: #999;
     color: white;
+    cursor: not-allowed;
 }
 
 .selected 
 {
     background-color: #2196F3;
     color: white;
+    cursor: pointer;
 }
 
 form label 
