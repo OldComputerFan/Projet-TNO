@@ -95,7 +95,22 @@ h1, h2 {
     grid-template-columns: repeat(5, 1fr);
     gap: 15px;
 }
-  
+
+#calendar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: left;
+    margin-top: 20px;
+}
+
+/* Assure que chaque colonne ne dépasse pas */
+.day-column {
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
 .day-column 
 {
     background-color: rgba(0, 0, 0, 0.75);
@@ -188,10 +203,4 @@ button[type="submit"]
     font-size: 1em;
 }
 
-#calendar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: start;
-    margin-top: 20px;
-}
+/* --- SUPPRIMER LA REGLE #calendar qui casse la grille --- */

@@ -2,12 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const calendarEl = document.getElementById("calendar");
   const selectedSlotInput = document.getElementById("selectedSlot");
   const form = document.getElementById("registrationForm");
+  console.log("Calendrier initialisé");
 
   let selected = null;
   const timeSlots = ["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"]; //Créneaux horaires disponibles
   // Nombre de jours à afficher dans le calendrier
   // La valeur peut être ajustée selon les besoins, Défaut: 5 jours
-  const daysToShow = 5;
+  const daysToShow = 8;
   const slotData = {};
 
   // Liste des jours fériés pour l'année 2025, à modifier pour les années suivantes
@@ -18,26 +19,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Génère les créneaux horaires pour les jours à venir
   // en tenant compte des jours fériés
-  function generateSlots() {
-    const today = new Date(); // Date actuelle
+function generateSlots() {
+  const today = new Date();
 
-    for (let d = 0; d < daysToShow; d++) { // Pour chaque jour à afficher
-      // Crée une nouvelle date en ajoutant d jours à aujourd'hui
-      // et formate la date au format YYYY-MM-DD
-      const date = new Date();
-      date.setDate(today.getDate() + d);
-      const dateStr = date.toISOString().split('T')[0];
+  for (let d = 0; d < daysToShow; d++) {
+    const date = new Date(today);          // Clone la date du jour
+    date.setDate(today.getDate() + d);     // Ajoute d jours
+    const dateStr = date.toISOString().split('T')[0];
 
-      const isHoliday = joursFeries.includes(dateStr);
-      slotData[dateStr] = {};
-      timeSlots.forEach(time => {
-        slotData[dateStr][time] = {
-          active: !isHoliday,
-          reserved: false
-        };
-      });
-    }
+    const isHoliday = joursFeries.includes(dateStr);
+    slotData[dateStr] = {};
+    timeSlots.forEach(time => {
+      slotData[dateStr][time] = {
+        active: !isHoliday,
+        reserved: false
+      };
+    });
   }
+  console.log("daysToShow =", daysToShow);
+}
+
+
 
   // Récupère les créneaux réservés depuis le serveur
   // en utilisant une requête AJAX
@@ -61,69 +63,62 @@ document.addEventListener("DOMContentLoaded", function () {
   // Affiche les jours et créneaux disponibles, réservés ou passés
   // Met à jour l'interface utilisateur en fonction des données
   function renderCalendar() {
-    calendarEl.innerHTML = '';
-    const today = new Date();
+  calendarEl.innerHTML = '';
+  const today = new Date();
 
-    for (let d = 0; d < daysToShow; d++) {
-      const date = new Date();
-      date.setDate(today.getDate() + d); // Crée une nouvelle date en ajoutant d jours à aujourd'hui
-      // Formate la date au format YYYY-MM-DD pour l'utiliser comme clé
-      // et au format lisible pour l'affichage
-      const dateStr = date.toISOString().split('T')[0];
-      // Formate la date pour l'affichage lisible
-      // Utilise le format français : "jour de la semaine, jour mois"
-      // Exemple : "lundi 1 janv."
-      // 'fr-FR' pour le format français
-      // { weekday: 'long', day: 'numeric', month: 'short' } pour le format souhaité
-      const readableDate = date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' });
+  for (let d = 0; d < daysToShow; d++) {
+    const date = new Date(today);          // Clone la date du jour
+    date.setDate(today.getDate() + d);     // Ajoute d jours
+    const dateStr = date.toISOString().split('T')[0];
+    const readableDate = date.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' });
 
-      const isHoliday = joursFeries.includes(dateStr); // Vérifie si la date est un jour férié
-      const dayCol = document.createElement('div'); // Crée une nouvelle colonne pour le jour
-      dayCol.classList.add('day-column');
-      dayCol.innerHTML = `<h4>${readableDate}${isHoliday ? " 🎉" : ""}</h4>`;
+    const isHoliday = joursFeries.includes(dateStr);
+    const dayCol = document.createElement('div');
+    dayCol.classList.add('day-column');
+    dayCol.innerHTML = `<h4>${readableDate}${isHoliday ? " 🎉" : ""}</h4>`;
 
-      timeSlots.forEach(time => {
-        const slot = slotData[dateStr][time];
-        const slotDiv = document.createElement('div'); // Crée un div pour le créneau horaire
-        slotDiv.classList.add('slot');
-        slotDiv.textContent = time;
+    timeSlots.forEach(time => {
+      const slot = slotData[dateStr][time];
+      const slotDiv = document.createElement('div');
+      slotDiv.classList.add('slot');
+      slotDiv.textContent = time;
 
-        const now = new Date();
-        const slotDateTime = new Date(dateStr + 'T' + time + ':00');
-        const isPast = slotDateTime < now;
+      const now = new Date();
+      const slotDateTime = new Date(dateStr + 'T' + time + ':00');
+      const isPast = slotDateTime < now;
 
-        // Détermine si le créneau est passé
-        if (isPast) {
-          slot.active = false;
-        }
+      if (isPast) {
+        slot.active = false;
+      }
 
-        if (!slot.active) { // Si le créneau n'est pas actif (passé ou jour férié)
-          slotDiv.classList.add('inactive');
-          slotDiv.textContent += isPast ? " - Passé" : " - Inactif";
-        } else if (slot.reserved) { // Si le créneau est réservé
-          slotDiv.classList.add('reserved');
-          slotDiv.textContent += " - Réservé";
-        } else { // Si le créneau est actif et disponible
-          slotDiv.classList.add('available');
-          slotDiv.textContent += " - Disponible";
+      if (!slot.active) {
+        slotDiv.classList.add('inactive');
+        slotDiv.textContent += isPast ? " - Passé" : " - Inactif";
+      } else if (slot.reserved) {
+        slotDiv.classList.add('reserved');
+        slotDiv.textContent += " - Réservé";
+      } else {
+        slotDiv.classList.add('available');
+        slotDiv.textContent += " - Disponible";
 
-          slotDiv.onclick = () => { // Ajoute un gestionnaire d'événement pour la sélection du créneau
-            selected = `${dateStr}|${time}`;
-            selectedSlotInput.value = selected;
-            renderCalendar(); // Met à jour le calendrier pour refléter la sélection
-          };
-        }
+        slotDiv.onclick = () => {
+          selected = `${dateStr}|${time}`;
+          selectedSlotInput.value = selected;
+          renderCalendar();
+        };
+      }
 
-        if (selected === `${dateStr}|${time}`) { // Si le créneau est sélectionné
-          slotDiv.classList.add('selected');
-        }
+      if (selected === `${dateStr}|${time}`) {
+        slotDiv.classList.add('selected');
+      }
 
-        dayCol.appendChild(slotDiv);
-      });
+      dayCol.appendChild(slotDiv);
+    });
 
-      calendarEl.appendChild(dayCol);
-    }
+    calendarEl.appendChild(dayCol);
   }
+}
+
 
   // Initialise le calendrier en générant les créneaux horaires
   // et en récupérant les créneaux réservés depuis le serveur
