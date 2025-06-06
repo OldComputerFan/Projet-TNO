@@ -18,5 +18,4 @@ Il y aura:
 
 ## Partie technique
   - HTML/CSS/JS pour le front-end,
-  - Flask pour le back-end,
-  - API Google Calendar pour la gestion des rendez-vous
+  - PHP pour le back-end
