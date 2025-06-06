@@ -17,13 +17,14 @@ try {
     exit;
 }
 
-// Vérification des données reçues
+// Récupération des données envoyées en POST
 $name = isset($_POST['name']) ? trim($_POST['name']) : '';
+$firstname = isset($_POST['firstname']) ? trim($_POST['firstname']) : '';
 $email = isset($_POST['email']) ? trim($_POST['email']) : '';
 $slot = isset($_POST['selectedSlot']) ? trim($_POST['selectedSlot']) : '';
 
 // Validation des données
-if (empty($name) || empty($email) || empty($slot)) {
+if (empty($name) || empty($firstname) || empty($email) || empty($slot)) {
     http_response_code(400);
     echo json_encode(['error' => 'Données incomplètes']);
     exit;
@@ -36,6 +37,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Vérifier le format du créneau horaire
+if (!str_contains($slot, '|')) {
+    http_response_code(400);
+    echo json_encode(['error' => 'Format du créneau invalide']);
+    exit;
+}
 list($date, $time) = explode('|', $slot);
 
 // Vérifier si le créneau est déjà réservé
@@ -47,18 +53,19 @@ if ($stmt->fetchColumn() > 0) {
     exit;
 }
 
-// Vérifier si user existe, sinon l’ajouter
+// Vérifier si l'utilisateur existe déjà
 $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
 $stmt->execute([$email]);
 $userId = $stmt->fetchColumn();
 
 if (!$userId) {
-    $stmt = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
-    $stmt->execute([$name, $email]);
+    // Ajouter un nouvel utilisateur
+    $stmt = $pdo->prepare("INSERT INTO users (firstname, name, email) VALUES (?, ?, ?)");
+    $stmt->execute([$firstname, $name, $email]);
     $userId = $pdo->lastInsertId();
 }
 
-// Insérer le rendez-vous
+// Enregistrer le rendez-vous
 $stmt = $pdo->prepare("INSERT INTO rdv (user_id, date, time) VALUES (?, ?, ?)");
 $stmt->execute([$userId, $date, $time]);
 
